@@ -1,6 +1,6 @@
 """
-CloudFormation ChangeSetの内容をAmazon Bedrockで分析し、
-分析結果を出力する。
+Analyzes the contents of a CloudFormation ChangeSet using Amazon Bedrock
+and outputs the analysis result.
 """
 
 from changeset import get_changeset
@@ -8,16 +8,16 @@ from bedrock import invoke_bedrock
 import sys
 
 def main():
-    # コマンドライン引数をチェック
+    # Check command-line arguments
     if len(sys.argv) < 2:
-        print("<ChangeSetARN>を指定してください。")
+        print("Please specify a <ChangeSetARN>.")
         sys.exit(1)
     
     changeset_name = sys.argv[1]
     
-    # CloudFormationの変更セットを取得する
+    # Retrieve the CloudFormation change set
     changes = get_changeset(changeset_name)
-    # Bedrockを使用してテキスト生成を行う
+    # Generate text using Bedrock
     answer = invoke_bedrock(changes)
     print(answer)
 
