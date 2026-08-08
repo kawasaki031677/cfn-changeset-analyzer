@@ -1,5 +1,5 @@
 """
-CloudFormationの変更セットを取得する
+Retrieves a CloudFormation changeset
 """
 
 import boto3
