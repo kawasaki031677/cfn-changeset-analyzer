@@ -12,7 +12,7 @@ def main():
     if len(sys.argv) < 2:
         print("Please specify a <ChangeSetARN>.")
         sys.exit(1)
-    
+
     changeset_name = sys.argv[1]
     
     # Retrieve the CloudFormation change set
