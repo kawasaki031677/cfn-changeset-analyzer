@@ -1,23 +1,23 @@
 """
-Bedrockを使用してテキスト生成を行う
+Generates text using Bedrock
 """
 
-# Python外部ライブラリのインポート
+# Import external libraries
 import boto3
 import json
 
 def invoke_bedrock(changeset, region_name='us-east-1'):
-    # Bedrockクライアントの作成
+    # Create Bedrock client
     bedrock_runtime = boto3.client("bedrock-runtime", region_name=region_name)
 
-    # system_prompt.txt からプロンプトを読み込む
+    # Load prompt from system_prompt.txt
     with open('system_prompt.txt', 'r', encoding='utf-8') as f:
         system_prompt_text = f.read()
 
-    # changesetをJSON文字列に変換
+    # Convert changeset to JSON string
     changeset_text = json.dumps(changeset, indent=2)
 
-    # リクエストボディを定義
+    # Define request body
     inference_config = {"maxTokens": 1000}
     messages = [{
         "role": "user",
@@ -25,10 +25,10 @@ def invoke_bedrock(changeset, region_name='us-east-1'):
     }]
     system = [{"text": system_prompt_text}]
 
-    # モデルを定義（Claude 3 Sonnet）
+    # Define model (Claude 3 Sonnet)
     model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
 
-    # レスポンスを定義
+    # Define response
     response = bedrock_runtime.converse(
         modelId=model_id,
         inferenceConfig=inference_config,
@@ -37,5 +37,5 @@ def invoke_bedrock(changeset, region_name='us-east-1'):
     )
     answer = response["output"]["message"]["content"][0]["text"]
 
-    # 生成されたテキストをコンソールに表示
+    # Return generated text
     return answer
