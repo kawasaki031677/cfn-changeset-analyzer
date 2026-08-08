@@ -1,5 +1,5 @@
 """
-Retrieves a CloudFormation changeset
+Retrieves a CloudFormation change set
 """
 
 import boto3

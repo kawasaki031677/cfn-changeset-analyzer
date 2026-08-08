@@ -1,15 +1,15 @@
 # cfn-changeset-analyzer
 
-A tool for analyzing AWS CloudFormation ChangeSets using Amazon Bedrock
+A tool that analyzes the contents of a CloudFormation ChangeSet using Amazon Bedrock
 
-This tool outputs the results of analyzing CloudFormation ChangeSet contents using Amazon Bedrock.
+This tool outputs the results of analyzing the changes in an AWS CloudFormation ChangeSet using Amazon Bedrock.
 
 ## Prerequisites
 
-- Python 3.10 or higher
+- Python 3.10 or later
 - AWS credentials configured (via AWS CLI or environment variables)
-- Access permissions to CloudFormation
-- Access permissions to the Bedrock API
+- Permission to access CloudFormation
+- Permission to access the Bedrock API
 
 ## Setup
 
@@ -30,31 +30,31 @@ python3 main.py arn:aws:cloudformation:ap-northeast-1:123456789012:changeSet/abc
 
 ## Output
 
-The tool displays the results of analyzing ChangeSet contents with Bedrock.
+The tool displays the results of analyzing the ChangeSet's changes with Bedrock.
 
-### Output Example
+### Example output
 
 ```
-## Behavior at Execution
-Configuration changes to the existing VPC resource (MyVPC) and addition of the Subnet resource (PublicSubnet1) will be performed.
+## Behavior at execution time
+The settings of the existing VPC resource (MyVPC) will be changed, and a Subnet resource (PublicSubnet1) will be added.
 
-## User Impact
-DNS resolution and naming will be enabled by the VPC configuration change, but there is no impact on existing resources. Only a new Subnet will be added, with no changes to the behavior of existing resources.
+## User impact
+The VPC configuration change enables DNS resolution and hostnames, but there is no impact on existing resources. Only a new Subnet is added; there is no change to the behavior of existing resources.
 
-## Rollback Risks
-If a rollback is required, the VPC configuration changes will be reverted and the added Subnet resource will be deleted.
+## Risk on rollback
+If a rollback is required, the VPC configuration change will be reverted, but the added Subnet resource will be deleted.
 
-## Operational Notes
-Insufficient information. The purpose of the added Subnet and the VPC configuration change are unclear, making it impossible to assess the overall impact on the network configuration. The impact of a rollback deleting a Subnet that contains resources is also unknown.
+## Operational notes
+Insufficient information. The purpose of the added Subnet and the reason for the VPC configuration change are unknown, so the impact on the overall network configuration cannot be assessed. The impact is also unknown if resources exist in the Subnet that would be deleted on rollback.
 ```
 
 ## Troubleshooting
 
-- **Authentication errors**: Verify that your AWS credentials are correctly configured
-- **ChangeSet not found**: Verify that the ChangeSet ARN is correct and has not been deleted
-- **Bedrock errors**: Verify that your region supports Bedrock
+- **If you get an authentication error**: Check that your AWS credentials are configured correctly
+- **If the ChangeSet cannot be found**: Check that the ChangeSet ARN is correct and has not been deleted
+- **If you get a Bedrock error**: Check that the region supports Bedrock
 
-## Runtime Environment
+## Runtime environment
 
-- Python 3.10 or higher
+- Python 3.10 or later
 - AWS SDK for Python (boto3)
